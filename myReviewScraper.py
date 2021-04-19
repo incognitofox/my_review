@@ -8,7 +8,7 @@ import re
 
 
 def test():
-    driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+    driver = webdriver.Chrome('C/users/will/downloads/chromedriver_win32/chromedriver.exe')
     scroll(driver)
     URL = get_url(driver)
     flag = True
