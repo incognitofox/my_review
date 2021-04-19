@@ -5,10 +5,12 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 import re
+import extractor
 
 
 def test():
-    driver = webdriver.Chrome('C/users/will/downloads/chromedriver_win32/chromedriver.exe')
+    driver = webdriver.Chrome('./chromedriver.exe')
+    #driver = webdriver.Chrome()
     scroll(driver)
     URL = get_url(driver)
     flag = True
@@ -42,7 +44,7 @@ def scroll(driver):
 	# scroll to end of page
 	html = driver.find_element_by_tag_name("html")
 	html.send_keys(Keys.END)
-	#sleep(0.5)
+	time.sleep(0.5)
 	driver.page_source
 
 def scrape(source):
@@ -51,12 +53,12 @@ def scrape(source):
     ctx.verify_mode = ssl.CERT_NONE
     soup = BeautifulSoup(source, 'html.parser')
 
-    class_comments = soup.find_all("td", "TabularBody_LeftColumn")
-    comments_text = []
-    for comment in class_comments:
-        comments_text.append(comment.text.strip())
-    print(comments_text)
-    return len(comments_text) > 0
+    headers = soup.find_all("h3")
+    headers_text = []
+    for header in headers:
+        headers_text.append(header.text.strip())
+    print(headers_text)
+    return len(headers_text) > 0
 
 def main():
     source = test()
