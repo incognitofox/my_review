@@ -68,12 +68,3 @@ def scrape(source):
     print(questions_with_responses)
     extractor.create_csv(questions_with_responses, 'test.csv')
     return len(questions_with_responses) > 0
-                
-                
-'''
-def main():
-    source = test()
-
-if __name__ == "__main__":
-    main()
-'''
