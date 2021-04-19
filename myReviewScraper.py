@@ -9,7 +9,7 @@ import extractor
 
 
 def test():
-    driver = webdriver.Chrome('./chromedriver.exe')
+    driver = webdriver.Chrome('/usr/local/bin/chromedriver.exe')
     #driver = webdriver.Chrome()
     scroll(driver)
     URL = get_url(driver)
