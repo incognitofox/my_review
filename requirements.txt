@@ -1,0 +1,4 @@
+bs4
+ssl
+selenium
+webdriver_manager
