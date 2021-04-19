@@ -5,13 +5,14 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 import re
+import time
 import extractor
 
 
 def test():
-    driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+    # driver = webdriver.Chrome('/usr/local/bin/chromedriver')
     # for Windows machines, put chromedriver.exe in directory of project:
-    # driver = webdriver.Chrome('./chromedriver.exe')
+    driver = webdriver.Chrome('./chromedriver.exe')
     scroll(driver)
     URL = get_url(driver)
     flag = True
@@ -65,13 +66,14 @@ def scrape(source):
                 responses_text = [response.text.strip() for response in responses]
                 questions_with_responses[question_text] = responses_text
     print(questions_with_responses)
-    extractor.create_csv(questions_with_responses)
+    extractor.create_csv(questions_with_responses, 'test.csv')
     return len(questions_with_responses) > 0
                 
                 
-
+'''
 def main():
     source = test()
 
 if __name__ == "__main__":
     main()
+'''
