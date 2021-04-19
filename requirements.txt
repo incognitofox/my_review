@@ -2,3 +2,5 @@ bs4
 ssl
 selenium
 webdriver_manager
+sys
+re
