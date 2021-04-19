@@ -8,9 +8,5 @@ When downloading chromedriver, make sure it's installed make sure it's installed
 
 ## Authors
 
-Praveen Balakrishnan
-Irina Lee
-Rohan Voddhi
-William Wang
-Derek Zhu
+Praveen Balakrishnan, Irina Lee, Rohan Voddhi, William Wang, Derek Zhu
 
