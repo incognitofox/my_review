@@ -19,8 +19,8 @@ def index():
 @app.route("/scrape")
 def scrape():
     print('scraping')
-    myReviewScraper.test()
-    return jsonify(result=0)
+    html = myReviewScraper.test()
+    return jsonify(result=html)
 
 if __name__ == '__main__':
     app.run(threaded=True, port=8080)

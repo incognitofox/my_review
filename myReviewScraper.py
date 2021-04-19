@@ -24,7 +24,7 @@ def test():
             driver.switch_to.window(driver.window_handles[1])
             driver.get(link)
             source = driver.page_source
-            finished = scrape(source)
+            finished, html = scrape(source)
             if finished:
         		# close tab
                 driver.close()
@@ -32,8 +32,8 @@ def test():
                 driver.switch_to.window(driver.window_handles[0])
                 scroll(driver)
                 flag = False
-                break
-
+                return html
+    return "empty"
 
 def get_url(driver):
 	#URL = 'https://www.google.com'
@@ -67,4 +67,5 @@ def scrape(source):
                 questions_with_responses[question_text] = responses_text
     print(questions_with_responses)
     extractor.create_csv(questions_with_responses, 'test.csv')
-    return len(questions_with_responses) > 0
+    html = extractor.create_html(questions_with_responses, 'test.csv')
+    return (len(questions_with_responses) > 0, html)
