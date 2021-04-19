@@ -52,13 +52,22 @@ def scrape(source):
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
     soup = BeautifulSoup(source, 'html.parser')
-
-    headers = soup.find_all("h3")
-    headers_text = []
-    for header in headers:
-        headers_text.append(header.text.strip())
-    print(headers_text)
-    return len(headers_text) > 0
+    
+    questions_with_responses = {}
+    questions = soup.find_all(class_="report-block")
+    for question in questions:
+        for tag in questions:
+            headers = tag.find_all("h3")
+            if headers:
+                question_text = headers[0].text.strip()
+                responses = tag.find_all("td", "TabularBody_LeftColumn")
+                responses_text = [response.text.strip() for response in responses]
+                questions_with_responses[question_text] = responses_text
+    print(questions_with_responses)
+    extractor.create_csv(questions_with_responses)
+    return len(questions_with_responses) > 0
+                
+                
 
 def main():
     source = test()
