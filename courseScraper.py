@@ -5,6 +5,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 import re
+import pickle
 
 listOfPrograms = ['anthropology', 'architecturalstudies', 'arthistory', 'astronomyastrophysics', 'biologicalchemistry',
                   'biologicalsciences', 'chemistry', 'cinemamediastudies', 'classicalstudies', 'comparativehumandevelopment'
@@ -19,15 +20,20 @@ listOfPrograms = ['anthropology', 'architecturalstudies', 'arthistory', 'astrono
                   'physics', 'politicalscience', 'psychology', 'publicpolicystudies', 'quantitativesocialanalysis'
                   , 'religiousstudies', 'renaissancestudies', 'romancelanguagesliteratures', 'slaviclanguagesliteratures'
                   , 'sociology', 'southasianlanguagescivilizations', 'statistics', 'theaterperformancestudies',
-                  'visualarts', 'yiddish']
+                  'visualarts', 'yiddish','humanities','artscore','biologicalsciencescore','civilizationstudies', 'mathematicalsciencescore','physicalsciences', 'socialsciences']
 
 def test():
     driver = webdriver.Chrome('chromedriver.exe')
     scroll(driver)
+    courses = set()
+    try: 
+        courses = pickle.load(open('courses.pkl', "rb"))
+    except:
+        pass
     for program in listOfPrograms:
         URL = get_url(driver, program)
         source = driver.page_source
-        finished = scrape(source)
+        finished = scrape(source, courses)
         links = driver.find_elements_by_xpath("//td[@class='title']/a")
         for link in links:
             link = link.get_attribute('href')
@@ -35,7 +41,7 @@ def test():
             driver.switch_to.window(driver.window_handles[1])
             driver.get(link)
             source = driver.page_source
-            finished = scrape(source)
+            finished = scrape(source, courses)
             if finished:
                 # close tab
                 driver.close()
@@ -43,6 +49,8 @@ def test():
                 driver.switch_to.window(driver.window_handles[0])
                 scroll(driver)
                 break
+    print(len(courses))
+    pickle.dump(courses, open("courses.pkl", "wb+"))
 
 
 def get_url(driver, program):
@@ -59,21 +67,20 @@ def scroll(driver):
 	#sleep(0.5)
 	driver.page_source
 
-def scrape(source):
+def scrape(source, courses):
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
     soup = BeautifulSoup(source, 'html.parser')
 
     catalog = soup.find_all("p", "courseblocktitle")
-    courses_text = []
     for course in catalog:
         next = course.text.strip()
         #courses_text.append(next)
         if (next[10:11] == '.'):
-            courses_text.append([next[0:4], next[5:10], next[13:-13]])
-    print(courses_text)
-    return len(courses_text) > 0
+            courses.add((next[0:4], next[5:10], next[13:-13]))
+    #print(courses_text)
+    return len(courses) > 0
 
 def main():
     source = test()
