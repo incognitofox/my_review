@@ -9,6 +9,7 @@ import cv2
 import pytesseract
 import csv
 import requests
+import pickle
 
 def create_csv(questions_with_responses, filename):
     with open(filename, 'w+') as f:
@@ -33,15 +34,30 @@ def create_html(questions_with_responses, filename):
     return html
 
 def parse_img(img_src, entry):
-    img = Image.open(requests.get(img_src, stream=True).raw)
-    string = pytesseract.image_to_string(img)
-    lines = string.split("\n")
-    lines = [i for i in lines if i and i != ' ']
-    for i in lines:
-        if '(' in i and ')' in i and '[' not in i:
-            text = i[0:i.find('(') - 1] 
-            value = i[i.find('(') + 1:i.find(')')]
-            entry[text] = value
+    try:
+        img = Image.open(requests.get(img_src, stream=True).raw)
+        string = pytesseract.image_to_string(img)
+        lines = string.split("\n")
+        lines = [i for i in lines if i and i != ' ']
+        for i in lines:
+            if '(' in i and ')' in i and '[' not in i:
+                text = i[0:i.find('(') - 1] 
+                value = i[i.find('(') + 1:i.find(')')]
+                entry[text] = value
+    except:
+        return None
     #print(entry)
     #print(lines)
     return None
+
+evals = pickle.load(open("database4.pkl", "rb"))
+
+for i in evals:
+    for j in evals[i]:
+        for k in evals[i][j]:
+            if 'chart_src' in evals[i][j][k]:
+                parse_img(evals[i][j][k]['chart_src'], evals[i][j][k])
+                print("parsing " + str(k))
+                
+pickle.dump(evals, open("database5.pkl", "wb+"))
+

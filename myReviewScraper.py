@@ -28,7 +28,7 @@ def test():
         pass
     scraped = set()
     try: 
-        scraped = pickle.load(open('scraped2.pkl', "rb"))
+        scraped = pickle.load(open('scraped3.pkl', "rb"))
     except:
         pass
     for course in courses:
@@ -81,7 +81,7 @@ def test():
                     flag = False
             
         pickle.dump(evals, open("database4.pkl", "wb+"))
-        pickle.dump(scraped, open("scraped2.pkl", "wb+"))
+        pickle.dump(scraped, open("scraped3.pkl", "wb+"))
     return evals
 
 def get_url(driver, department, course):
