@@ -22,5 +22,10 @@ def scrape():
     html = myReviewScraper.test()
     return jsonify(result=html)
 
+@app.route('/database', methods=["POST"]) #displays database (?) in databaes tab
+def database():
+    csv = pd.read_csv("cities.csv")
+    return jsonify(csv=csv.to_csv())
+
 if __name__ == '__main__':
     app.run(threaded=True, port=8080)

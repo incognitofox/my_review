@@ -50,14 +50,18 @@ def parse_img(img_src, entry):
     #print(lines)
     return None
 
-evals = pickle.load(open("database4.pkl", "rb"))
 
-for i in evals:
-    for j in evals[i]:
-        for k in evals[i][j]:
-            if 'chart_src' in evals[i][j][k]:
-                parse_img(evals[i][j][k]['chart_src'], evals[i][j][k])
-                print("parsing " + str(k))
-                
-pickle.dump(evals, open("database5.pkl", "wb+"))
+def main():
+    evals = pickle.load(open("database4.pkl", "rb"))
+    for i in evals:
+        for j in evals[i]:
+            for k in evals[i][j]:
+                if 'chart_src' in evals[i][j][k]:
+                    parse_img(evals[i][j][k]['chart_src'], evals[i][j][k])
+                    print(evals[i][j][k])                
+                    pickle.dump(evals, open("database5.pkl", "wb+"))
+
+if __name__ == "__main__":
+    main()
+
 
