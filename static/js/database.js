@@ -41,8 +41,10 @@ function show_database(){
               columns: columns,
               movableColumns: true,
               movableRows: true,
-              movableRowsConnectedElements: "#database_right",
-              movableRowsElementDrop: database_drag,
+              movableRowsConnectedTables: "#checkout",
+              movableRowsReceiver: "add",
+              //movableRowsSender: "delete",
+              //movableRowsElementDrop: database_drag,
               pagination:"local",
               paginationSize:25,
               paginationSizeSelector:[5, 10, 25, 50, 100, 1000],
@@ -50,15 +52,25 @@ function show_database(){
             });
         cols = table.getColumns()
         console.log(cols)
-        table.redraw();
+        //table.redraw();
+
+        var table = new Tabulator("#checkout", {
+            layout: "fitColumns",
+            columns: [{title: 'Course ID', field: "Course ID"}, {title: 'Difficulty', field: "Difficulty", bottomCalc:"sum"}],
+            movableColumns: true,
+            movableRows: true,
+            movableRowsConnectedTables: "#database_left",
+            movableRowsSender: "delete",
+            placeholder: "Drag classes here",
+            data:[]
+        })
      }
  })
 }
 
 function database_drag(e, element, row){
    var table_display = document.createElement("li");
-   table_display.textContent = row.getData().id;
-   console.log(row.getData().id)
+   table_display.textContent = row.getData()["Course ID"] + " " + row.getData()["Difficulty"];
    element.appendChild(table_display);
 }
 
@@ -72,7 +84,7 @@ function database_click(e, row){
    }
    text += "</table>"
    console.log(text)
-   document.getElementById("database_right").innerHTML = text;
+   document.getElementById("database_display").innerHTML = text;
    console.log(row.getData())
 }
 

@@ -9,6 +9,7 @@ from flask import Flask, render_template, request, jsonify
 import os, io, sys
 import pandas as pd
 import myReviewScraper
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
@@ -28,7 +29,10 @@ def database():
     '''courses = csv['Course ID'].str.split(' ', n = 1, expand = True)
     csv.insert(0, 'Department', courses[0])
     csv.insert(1, 'Course #', courses[1])'''
+    plt.hist(csv['Professor Score'].dropna())
+    plt.show()
     csv = csv.round(3)
+    
     #csv.drop(columns=['Course ID'], inplace=True)
     return jsonify(csv=csv.to_csv())
 
