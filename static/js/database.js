@@ -6,11 +6,10 @@ function show_database(){
      success: function(response){
         console.log("Success!")
         csv = response.csv;
-        var table_data = Papa.parse(csv,{header: true,})
+        var table_data = Papa.parse(csv,{header: true, dynamicTyping: true,})
         table_data = table_data.data
         var columns = []
         var header = table_data[0]
-        console.log(header)
         for(const prop in header){
            var column;
            console.log(prop)
@@ -21,7 +20,8 @@ function show_database(){
                    headerFilter: 'input',
                }
            }
-           if(typeof(header[prop]) == 'number'){
+           //if(typeof(header[prop]) == 'number'){
+           else {
                column = {
                    title: prop,
                    field: prop,
@@ -50,7 +50,6 @@ function show_database(){
             });
         cols = table.getColumns()
         console.log(cols)
-      //  document.getElementById("charts").style.display = "block";
         table.redraw();
      }
  })
