@@ -24,7 +24,12 @@ def scrape():
 
 @app.route('/database', methods=["POST"]) #displays database (?) in databaes tab
 def database():
-    csv = pd.read_csv("cities.csv")
+    csv = pd.read_csv("course_database-1.csv")
+    '''courses = csv['Course ID'].str.split(' ', n = 1, expand = True)
+    csv.insert(0, 'Department', courses[0])
+    csv.insert(1, 'Course #', courses[1])'''
+    csv = csv.round(3)
+    #csv.drop(columns=['Course ID'], inplace=True)
     return jsonify(csv=csv.to_csv())
 
 if __name__ == '__main__':

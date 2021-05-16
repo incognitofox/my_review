@@ -32,9 +32,11 @@ function show_database(){
            }
            columns.push(column)
         }
+        columns = columns.slice(1)
         console.log(columns)
         var table = new Tabulator("#database_left",
             { 
+              layout: "fitColumns",
               data: table_data,
               columns: columns,
               movableColumns: true,
@@ -63,10 +65,10 @@ function database_drag(e, element, row){
 
 function database_click(e, row){
    data = row.getData()
-   header = data['_id']
+   header = data['Course ID']
    text = "<h2>" + header + "</h2><table>"
    for(const prop in data){
-      if(prop != '_id')
+      if(prop && prop != 'Course ID')
         text += "<tr><td>" + prop + "</td><td>" + data[prop] + "<td></tr>"
    }
    text += "</table>"
