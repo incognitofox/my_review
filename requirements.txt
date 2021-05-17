@@ -5,3 +5,4 @@ flask
 pandas
 pytesseract
 gunicorn
+cv2
