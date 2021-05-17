@@ -4,3 +4,4 @@ webdriver_manager
 flask
 pandas
 pytesseract
+gunicorn
