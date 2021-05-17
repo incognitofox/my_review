@@ -5,7 +5,6 @@ Created on Mon Apr 19 00:17:50 2021
 @author: Will
 """
 from PIL import Image
-import cv2
 import pytesseract
 import csv
 import requests
