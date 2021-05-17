@@ -16,12 +16,6 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route("/scrape")
-def scrape():
-    print('scraping')
-    html = myReviewScraper.test()
-    return jsonify(result=html)
-
 @app.route('/database', methods=["POST"]) #displays database (?) in databaes tab
 def database():
     csv = pd.read_csv("course_database-1.csv")
@@ -29,4 +23,4 @@ def database():
     return jsonify(csv=csv.to_csv())
 
 if __name__ == '__main__':
-    app.run("https://my-review-test.herokuapp.com/")
+    app.run()
