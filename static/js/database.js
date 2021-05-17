@@ -1,3 +1,7 @@
+window.onload = function() {
+    show_database()
+}
+
 function show_database(){
  console.log("database")
  $.ajax({
