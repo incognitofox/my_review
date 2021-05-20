@@ -7,20 +7,32 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/pivottable/2.23.0/pivot.min.js"></script>
         <link href="//unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
+        <link rel="icon" href="{{ url_for('static', filename='res/uc-logo.jpeg') }}"></script>
         <script type="text/javascript" src="//unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
         <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <link type="text/css"  rel='stylesheet' href="{{ url_for('static', filename='css/main.css') }}"></link>
         <script type="text/javascript"  src="{{ url_for('static', filename='js/database.js') }}"></script>
-        <script type="text/css"  src="{{ url_for('static', filename='css/main.css') }}"></script>
         <title>My Review</title>
     </head>
     <body>
         <div><h1>my.Review</h1></div>
         <div id='database_left' style='float:left; width:70%;'  name='database_left'></div>
         <div id='database_right' style='float:right; width:25%;' name='database_right'>
-            <div id='database_display' style="height:20%; padding:4px;"></div>
-            <div id='checkout' name='checkout' style="height:40%; padding:4px;"></div>
+            <div id="database_display" class="hud">
+                <h2>BIOS 23266</h2>
+                <table>
+                    <tbody>
+                        <tr><td>Section</td><td>1</td><td></td></tr>
+                        <tr><td>Date</td><td>Autumn 2019</td><td></td></tr>
+                        <tr><td>Professor</td><td>Christine Andrews</td><td></td></tr>
+                        <tr><td>Professor Score</td><td>null</td><td></td></tr>
+                        <tr><td>Difficulty</td><td>null</td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id='checkout' name='checkout'></div>
         </div>
 
     </body>
