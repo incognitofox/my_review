@@ -3,12 +3,35 @@ body {
 }
 
 h1 {
-    color: #800000;
+    color: white;
+    padding:10px;
+    text-align: center;
 }
-
+.title_div{
+    width: 100%;
+    background: maroon;
+}
 .hud {
     color: black;
     padding: 4px;
     border-style:solid;
 }
 
+
+.tabulator-col-title{
+    color: maroon;
+    text-align: center;
+}
+
+.tabulator-row{
+    color: black;
+    text-align: center;
+]}
+
+.tabulator-row-odd{
+    background-color: white;
+}
+
+.tabulator-row-even{
+    color: maroon;
+}
