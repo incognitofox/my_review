@@ -19,7 +19,7 @@ h1 {
 
 
 .tabulator-col-title{
-    color: maroon;
+    color: black;
     text-align: center;
 }
 
@@ -33,5 +33,5 @@ h1 {
 }
 
 .tabulator-row-even{
-    color: maroon;
+    color: black;
 }
